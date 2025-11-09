@@ -1,4 +1,4 @@
-import 'package:google_sign_in/google_sign_in.dart';
+
 import 'package:app_logic/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -6,7 +6,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 class AuthenticationService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final Database _db = Database();
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   Stream<User?> get authStateChanges => _auth.authStateChanges();
 
@@ -60,59 +59,21 @@ class AuthenticationService {
   }
 
 
-  Future<User?>signInWithGoogle() async {
+  Future<String> sendPasswordResetEmail(String email) async {
 
     try{
-      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-
-      if (googleUser == null){
-        return null;
+      await _auth.sendPasswordResetEmail(email: email);
+      return "success";
+    } on FirebaseAuthException catch (e) {
+      print(e.message);
+      if (e.code == 'user-not-found'){
+        return 'No se encontró ningun usuario con este correo.';
+      } else if (e.code == 'invalid-email') {
+        return 'El formato del correo no es válido,';
       }
-
-      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-
-      final AuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
-
-      final UserCredential userCredential = await _auth.signInWithCredential(credential);
-
-      User? user = userCredential.user;
-
-      if (user != null && userCredential.additionalUserInfo?.isNewUser == true){
-        final nameParts = user.displayName?.split(' ') ?? [''];
-        final name = nameParts.first;
-        final lastname = nameParts.length > 1 ? nameParts.sublist(1). join(' '): '';
-        final username = user.email?.split('@').first ?? user.uid;
-
-        await _db.updateUserData(
-          uid: user.uid, 
-          email: user.email ?? '', 
-          name: name, 
-          lastname: lastname, 
-          username: username, 
-          birthdate: null,
-          );
-      }
-
-      return user;
-    }on FirebaseAuthException catch (e){
-      print('Error de firebase Auth (Google): ${e.message}');
-      return null;
-    } catch (e){
-      print('Error desconocido (Google): ${e.toString()}');
-      return null;
+      return 'Ocurrio un error. Intentalo de nuevo.';
     }
-
-
   }
-
-
-
-
-
-
 
 
   //cerrar sesion

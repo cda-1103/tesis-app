@@ -1,4 +1,5 @@
 import 'package:app_logic/authentication_service.dart';
+import 'package:app_logic/forgot_password.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:app_logic/register_screen.dart';
@@ -87,38 +88,18 @@ class _LoginScreenState extends State<LoginScreen>{
               ),
               const SizedBox(height: 10),
 
-              SizedBox(
-                width: double.infinity,
-                child: OutlinedButton.icon(
 
-                  icon: Image.asset(
-                    'img/google.png',
-                    height: 20,
-                    width: 20,
-                  ),
-                  label: const Text('Iniciar Sesion con Google'),
-                  onPressed: () async {
-                    final authService = context. read<AuthenticationService>();
-
-                    setState(() {
-                      _errorMessage = '';
-                    });
-
-                    final user = await authService.sigInWithGoogle();
-
-                    if (user == null && mounted) {
-                      setState(() {
-                        _errorMessage = 'Error al iniciar sesion con Google.';
-                      });
-                    }
-
-                  },
-                  style: OutlinedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                  ),
-                )
+              const SizedBox(height: 20),
+              TextButton(
+                onPressed: (){
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const ForgotPasswordScreen()
+                      ),
+                  );
+                },
+                child: const Text('¿Olvidaste tu contraseña?'),
               ),
-
 
               const SizedBox(height: 20),
               TextButton(
