@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "247737032867",
+    "project_id": "tesis-app-log",
+    "storage_bucket": "tesis-app-log.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:247737032867:android:a55ceb9c248a0e33021f16",
+        "android_client_info": {
+          "package_name": "com.example.app_logic"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6lBPujz8yoIsU3noDrYpt2waxbkFAyUY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
