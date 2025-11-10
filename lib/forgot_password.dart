@@ -1,4 +1,4 @@
-import 'package:app_logic/Authentication_service.dart';
+import 'package:app_logic/authentication_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -65,7 +65,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Recibe un correo',
+                'Recibe un correo electronico para restablecer tu contraseña',
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
               const SizedBox(height: 10),

@@ -2,7 +2,6 @@ import 'package:app_logic/authentication_service.dart';
 import 'package:app_logic/forgot_password.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
-import 'package:app_logic/register_screen.dart';
 
 
 class LoginScreen extends StatefulWidget {
@@ -92,11 +91,7 @@ class _LoginScreenState extends State<LoginScreen>{
               const SizedBox(height: 20),
               TextButton(
                 onPressed: (){
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const ForgotPasswordScreen()
-                      ),
-                  );
+                  Navigator.of(context).pushNamed('/forgot-password');
                 },
                 child: const Text('¿Olvidaste tu contraseña?'),
               ),
@@ -104,11 +99,7 @@ class _LoginScreenState extends State<LoginScreen>{
               const SizedBox(height: 20),
               TextButton(
                 onPressed: (){
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const RegisterScreen()
-                      ),
-                  );
+                  Navigator.of(context).pushNamed('/register');
                 },
                 child: const Text('¿No tienes cuenta? Regístrate'),
               ),
